@@ -60,13 +60,10 @@ if __name__ == "__main__":
     curr_idx = 0
     byte_arr_user_passwd = bytearray(user_passwd)
     
-    # print(byte_arr_user_passwd[0])
     while curr_idx < passwd_len:
-        # print((curr_idx,passwd_len))
         for i in range(0,256):
             byte_arr_user_passwd[curr_idx] = i
-            user_passwd = bytes(byte_arr_user_passwd)
-            # print(user_passwd)        
+            user_passwd = bytes(byte_arr_user_passwd)       
             
             status = blackbox.check(user_passwd)
             
