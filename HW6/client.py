@@ -37,6 +37,7 @@ def authenticate(user_id, password):
     # Close client socket
     client_socket.close()
 
+# Information on how to use
 def help():
     print("Client Action:")
     print("1 - Create Account")

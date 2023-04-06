@@ -16,19 +16,22 @@ class server:
     # HoneyWord generation algorithm
     def generate_honeywords(self, user_id, password):
         honeywords = []
-        salt = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(8))
 
+        while True:
+            salt = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(SALT_LENGTH))
+            if salt not in self.salts.values():
+                break
+        
+        # DEFAULT HONEYWORD
         pwd_hash = hashlib.sha256((DEFAULT_HONEYWORD + salt).encode('utf-8')).hexdigest()
         honeywords.append(pwd_hash)
         
+        # REAL PASSWORD
         pwd_hash = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
         honeywords.append(pwd_hash)
         
-        for i in range(NUM_PWD-1):
-            ### TODO: Augment password better (if needed) ###
-            #                                               #
-            #                                               #
-            #################################################
+        # LIST OF HONEYWORDS
+        for i in range(NUM_PWD):
             honeyword = hashlib.sha256((password + str(i) + salt).encode('utf-8')).hexdigest()
             honeywords.append(honeyword)
             
@@ -45,7 +48,7 @@ class server:
 
         # Receive honeychecker response
         response = pickle.loads(hc_socket.recv(BUFFER_SIZE))
-        print(response['message'])
+        print(f"STATUS: {response['message']}\n")
 
         # Close server socket
         hc_socket.close()
@@ -66,7 +69,7 @@ class server:
 
         # Receive honeychecker response
         response = pickle.loads(hc_socket.recv(BUFFER_SIZE))
-        print(response['message'])
+        print(f"STATUS: {response['message']}\n")
 
         # Close server socket
         hc_socket.close()
@@ -77,7 +80,7 @@ class server:
 
     # Alert mechanism
     def send_alert(self, user_id, honeyword):
-        print("ALERT: User %s's account has been compromised with HoneyWord \"%s\"" % (user_id, honeyword))
+        print(f"ALERT: User {user_id}'s account has been compromised with HoneyWord \"{honeyword}\"\n")
 
     # Handle client requests
     def handle_client(self, client_socket):
@@ -102,8 +105,9 @@ class server:
             user_id = request['user_id']
             password = request['password']
             
-            if user_id not in self.database:
+            if user_id not in self.database.keys():
                 response = {'status': 'fail', 'message': 'User ID not found'}
+                print(f"STATUS: {response['message']}\n")
                 client_socket.send(pickle.dumps(response))
             else:
                 pwd_hash = hashlib.sha256((password + self.salts[user_id]).encode('utf-8')).hexdigest()
@@ -112,7 +116,7 @@ class server:
                 if pwd_hash in honeywords:
                     if self.is_honeyword(user_id, pwd_hash):
                         self.send_alert(user_id, password)
-                        response = {'status': 'fail', 'message': 'Authentication failed'}
+                        response = {'status': 'fail', 'message': 'Invalid password'}
                         client_socket.send(pickle.dumps(response))
                     else:
                         response = {'status': 'success', 'message': 'Authentication successful'}
@@ -120,6 +124,7 @@ class server:
 
                 else:
                     response = {'status': 'fail', 'message': 'Invalid password'}
+                    print(f"STATUS: {response['message']}\n")
                     client_socket.send(pickle.dumps(response))
 
         # Close client socket
@@ -149,6 +154,5 @@ def main():
     srv_thread.start()
 
     
-
 if __name__ == '__main__':
     main()
