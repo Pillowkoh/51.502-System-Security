@@ -143,10 +143,15 @@ In our implementation of the HoneyWords System, we lack security control against
 To combat MiTM attacks, we propose 3 different defense mechanisms. Namely:
 
 1. **Public-Key Infrastructure (PKI):** 
+
    This is a system used to create, manage, and distribute digital certificates and public keys to users or devices in a network. PKI can help prevent MiTM attacks by verifying the authenticity of the communication between the client and the server. When two devices communicate using PKI, they exchange digital certificates that include public keys, which are verified by a trusted third-party certification authority (CA) to ensure that they belong to the intended parties. This ensures that the communication is secure and not intercepted by an attacker.
+
 2. **Multi-Factor Authentication (MFA):** 
+
    This is a security mechanism that requires users to provide two or more forms of authentication to access a network or device. Typically, this involves a combination of something the user knows (such as a password), something the user has (such as a token or smart card), or something the user is (such as biometric data like fingerprints). MFA helps prevent MiTM attacks by making it more difficult for an attacker to impersonate a legitimate user and gain access to the network or device.
+
 3. **Firewall:** 
+
    This is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. A firewall can help prevent MiTM attacks by filtering out unauthorized traffic and blocking suspicious connections that could be used by an attacker to intercept or manipulate communication between two parties.
 
 
