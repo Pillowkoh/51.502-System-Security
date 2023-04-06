@@ -23,7 +23,7 @@ In our HoneyWords system, it includes 3 main actors.
 
 # How it works:
 
-This section will give details on each individual process of the implemented HoneyWords System. Note: We will use "clients" interchangeably with "users".
+This section will give details on each individual process of the implemented HoneyWords System. Please refer to the video for demonstration of the entire process. (Note: We will use "clients" interchangeably with "users".) 
 
 ## 1. Initialisation of Server
 
