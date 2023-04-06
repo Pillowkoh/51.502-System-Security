@@ -108,19 +108,27 @@ In our implementation of the HoneyWords system, we introduced two main component
 
 This is a technique used to store passwords securely by adding a random value (known as a salt) to the password before hashing it. The resulting salted hash is then stored in the database. The main advantages of using salted password hashes are:
 
-1. Increased security: Salted password hashes provide increased security compared to storing passwords in plain text or using unsalted hashes. The salt makes it much harder for attackers to use precomputed hash tables or rainbow tables to crack the passwords.
+1. **Increased security:** 
 
-2. Prevents identical passwords from having the same hash: If two users have the same password, and that password is not salted, then their password hashes would be identical. This can be exploited by attackers who can use the same password hash to access multiple accounts. By using salted hashes, each user's password hash will be unique, even if they have the same password.
+   Salted password hashes provide increased security compared to storing passwords in plain text or using unsalted hashes. The salt makes it much harder for attackers to use precomputed hash tables or rainbow tables to crack the passwords.
 
-3. Difficult to reverse-engineer: Salted password hashes are difficult to reverse-engineer because the salt adds an extra layer of complexity. An attacker would need to know the salt used for each user's password, as well as the hashing algorithm used, in order to reverse-engineer the password from the hash.
+2. **Prevents identical passwords from having the same hash:**
 
+   If two users have the same password, and that password is not salted, then their password hashes would be identical. This can be exploited by attackers who can use the same password hash to access multiple accounts. By using salted hashes, each user's password hash will be unique, even if they have the same password.
+
+3. **Difficult to reverse-engineer:** 
+
+   Salted password hashes are difficult to reverse-engineer because the salt adds an extra layer of complexity. An attacker would need to know the salt used for each user's password, as well as the hashing algorithm used, in order to reverse-engineer the password from the hash.
 
 ## Separated Database (Front-end Server and HoneyChecker)
 
-1. Improved security: Separating databases can help to increase security by reducing the potential impact of security breaches. For example, if one database is compromised, the other databases may still be secure. In this HoneyWords System, it means that an attacker would have to gain access to both databases in order to crack the user password.
+1. **Improved security:** 
 
-2. Enhanced data organization: Separating databases can help you to organize your data more effectively. By separating data by type or function, you can reduce complexity and make it easier to manage and access the data.
+   Separating databases can help to increase security by reducing the potential impact of security breaches. For example, if one database is compromised, the other databases may still be secure. In this HoneyWords System, it means that an attacker would have to gain access to both databases in order to crack the user password.
 
+2. **Enhanced data organization:** 
+
+   Separating databases can help you to organize your data more effectively. By separating data by type or function, you can reduce complexity and make it easier to manage and access the data.
 
 ## Vulnerabilities
 
